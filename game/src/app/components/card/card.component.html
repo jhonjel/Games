@@ -1,0 +1,5 @@
+<div class="card" [class.revealed]="card.revealed || card.matched" (click)="onClick()">
+  {{ card.revealed || card.matched ? card.value : '?' }}
+</div>
+
+  

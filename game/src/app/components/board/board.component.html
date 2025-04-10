@@ -1,0 +1,13 @@
+<div class="scoreboard">
+    <p>Jugador 1: {{ scores[1] }} | Jugador 2: {{ scores[2] }}</p>
+    <p>Turno de: Jugador {{ currentPlayer }}</p>
+  </div>
+  
+  <div class="grid">
+    <app-card
+      *ngFor="let card of cards"
+      [card]="card"
+      (cardClicked)="onCardClick(card)">
+    </app-card>
+  </div>
+  

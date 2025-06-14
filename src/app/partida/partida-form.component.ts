@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Usuario } from '../usuarios/usuario.model';
+import { Router, RouterModule } from '@angular/router';
+
 import { Partida } from '../models/partida.model';
 import { PartidaService } from '../service/partida.service';
-import { CommonModule } from '@angular/common';
-
-
-
+import { UserService } from '../service/user.service';
+import { Usuario } from '../usuarios/usuario.model';
 
 @Component({
   selector: 'app-partida-form',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './partida-form.component.html',
   styleUrls: ['./partida-form.component.sass']
 })
@@ -20,27 +20,45 @@ export class PartidaFormComponent implements OnInit {
   usuarios: Usuario[] = [];
   jugador1Id!: number;
   jugador2Id!: number;
+  errorMessage: string = '';
 
   constructor(
-  private readonly partidaService: PartidaService,
-  private router: Router
-) {}
-
+    private partidaService: PartidaService,
+    private usuariosService: UserService,
+    public router: Router // CAMBIO CLAVE: 'router' debe ser público para ser usado en el HTML
+  ) {}
 
   ngOnInit(): void {
-    this.usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    this.usuariosService.getUsuarios().subscribe({
+      next: (data) => {
+        this.usuarios = data;
+        console.log('Usuarios cargados:', this.usuarios);
+      },
+      error: (err) => {
+        console.error('Error al cargar usuarios:', err);
+        this.errorMessage = 'No se pudieron cargar los usuarios.';
+      }
+    });
   }
 
-  crearPartida() {
-    if (this.jugador1Id === this.jugador2Id) {
-      alert('Selecciona dos jugadores diferentes.');
+  crearPartida(): void {
+    const jugador1 = this.usuarios.find(u => u.id === this.jugador1Id);
+    const jugador2 = this.usuarios.find(u => u.id === this.jugador2Id);
+
+    if (!jugador1 || !jugador2) {
+      this.errorMessage = 'Por favor selecciona ambos jugadores.';
+      return;
+    }
+
+    if (jugador1.id === jugador2.id) {
+      this.errorMessage = 'Selecciona dos jugadores diferentes.';
       return;
     }
 
     const nuevaPartida: Partida = {
       id: Date.now(),
-      jugador1Id: this.jugador1Id,
-      jugador2Id: this.jugador2Id,
+      jugador1Id: jugador1.id,
+      jugador2Id: jugador2.id,
       fecha: new Date().toISOString(),
       aciertos: {
         jugador1: 0,
@@ -48,15 +66,15 @@ export class PartidaFormComponent implements OnInit {
       }
     };
 
-    // Guardar la partida en el historial
-  this.partidaService.guardarPartida(nuevaPartida);
-
-  // Establecerla como la partida activa
-  this.partidaService.establecerPartidaActiva(nuevaPartida); 
-
-  alert('¡Partida creada exitosamente!');
-  this.router.navigate(['/partida'])
-  
+    this.partidaService.guardarPartida(nuevaPartida);
+    this.partidaService.establecerPartidaActiva(nuevaPartida);
+    this.router.navigate(['/partida']);
   }
-  
+
+  // Este método público no es estrictamente necesario si router es público en el constructor
+  // y lo llamas directamente en el HTML como (click)="router.navigate(['/registrarme'])"
+  // Sin embargo, si prefieres encapsular la lógica de navegación en un método, puedes mantenerlo.
+  public navigateToRegistro(): void {
+    this.router.navigate(['/registrarme']);
+  }
 }

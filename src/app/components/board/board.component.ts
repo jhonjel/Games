@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { Card } from '../../models/card.model';
 import { CardComponent } from "../card/card.component";
 import { Partida } from '../../models/partida.model';
-import { Usuario } from '../../usuarios/usuario.model';
 import { PartidaService } from '../../service/partida.service';
-
 
 @Component({
   selector: 'app-board',
@@ -14,7 +12,6 @@ import { PartidaService } from '../../service/partida.service';
   imports: [CommonModule, CardComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.sass'],
- 
 })
 export class BoardComponent implements OnInit {
   cards: Card[] = [];
@@ -23,71 +20,46 @@ export class BoardComponent implements OnInit {
   lockBoard = false;
 
   currentPlayer = 1;
-  scores: { [key: number]: number } = { 1: 0, 2: 0 };
+  puntajeJugador1 = 0;
+  puntajeJugador2 = 0;
 
   partida?: Partida;
-  jugador1?: Usuario;
-  jugador2?: Usuario;
-  
-
   tiempoTranscurrido: string = '00:00';
   nivel: string = 'Fácil';
   temporizador: any;
+  inicioTimestamp = 0;
 
-constructor(
-  private readonly partidaService: PartidaService,
-  private readonly router: Router
-) {}
-
+  constructor(
+    private readonly partidaService: PartidaService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
-  this.cargarPartidaActiva();
-  this.generateBoard();
-  this.iniciarTemporizador();
+    this.cargarPartidaActiva();
+    this.generateBoard();
+    this.iniciarTemporizador();
   }
 
-  finalizarPartida(): void {
-  if (!this.partida) return;
-
-  // Actualiza los aciertos en la partida antes de guardarla
-  this.partida.aciertos = {
-    jugador1: this.scores[1],
-    jugador2: this.scores[2]
-  };
-
-  // Guarda la partida en historial
-  this.partidaService.guardarPartida(this.partida);
-
-  // Limpia la partida activa
-  localStorage.removeItem('partidaActiva');
-
-  // Redirige a la página de inicio (crear partida)
-  this.router.navigate(['/']);
-}
-
-cargarPartidaActiva(): void {
-  const partida = this.partidaService.obtenerPartidaActiva();
-  if (partida) {
-    this.partida = partida;
-    const usuarios: Usuario[] = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    this.jugador1 = usuarios.find(u => u.id === partida.jugador1Id);
-    this.jugador2 = usuarios.find(u => u.id === partida.jugador2Id);
-  } else {
-    console.warn('No se encontró una partida activa.');
+  cargarPartidaActiva(): void {
+    const partida = this.partidaService.obtenerPartidaActiva();
+    if (partida) {
+      this.partida = partida;
+      this.nivel = partida.nivel || 'Fácil';
+    } else {
+      console.warn('No se encontró una partida activa.');
+    }
   }
-}
-
-
 
   iniciarTemporizador(): void {
-    const inicio = Date.now();
+    this.inicioTimestamp = Date.now();
     this.temporizador = setInterval(() => {
-      const elapsed = Date.now() - inicio;
+      const elapsed = Date.now() - this.inicioTimestamp;
       const minutos = Math.floor(elapsed / 60000);
       const segundos = Math.floor((elapsed % 60000) / 1000);
       this.tiempoTranscurrido = `${this.pad(minutos)}:${this.pad(segundos)}`;
     }, 1000);
   }
+
   pad(n: number): string {
     return n < 10 ? '0' + n : n.toString();
   }
@@ -118,7 +90,13 @@ cargarPartidaActiva(): void {
       if (this.firstCard!.value === this.secondCard!.value) {
         this.firstCard!.matched = true;
         this.secondCard!.matched = true;
-        this.scores[this.currentPlayer]++;
+
+        // Puntaje local
+        if (this.currentPlayer === 1) {
+          this.puntajeJugador1++;
+        } else {
+          this.puntajeJugador2++;
+        }
       } else {
         this.firstCard!.revealed = false;
         this.secondCard!.revealed = false;
@@ -130,5 +108,22 @@ cargarPartidaActiva(): void {
       this.lockBoard = false;
     }, 800);
   }
+
+  finalizarPartida(): void {
+    if (!this.partida) return;
+
+    // Detener temporizador
+    clearInterval(this.temporizador);
+
+    // Guardar duración de la partida (en segundos)
+    const duracionMs = Date.now() - this.inicioTimestamp;
+    const segundos = Math.floor(duracionMs / 1000);
+    this.partida.tiempo = segundos;
+
+    this.partidaService.guardarPartida(this.partida);
+
+    this.router.navigate(['/']);
+  }
 }
+
 

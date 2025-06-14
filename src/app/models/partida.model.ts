@@ -1,12 +1,8 @@
 export interface Partida {
-  id: number;
-  jugador1Id: number;
-  jugador2Id: number;
+  id?: number; // O string, si tu backend lo maneja así
+  juego_id: string; // <--- DEBE SER STRING
   fecha: string;
-  tiempo?: number;
-  niveles?: number;
-  aciertos: {
-    jugador1: number;
-    jugador2: number;
-  };
+  tiempo: number;
+  nivel?: string;
+  // Otros campos si tu backend los espera para el POST de partida
 }

@@ -14,21 +14,19 @@ export class PartidaService {
   }
 
   // Guardar nueva partida al historial
-  guardarPartida(partida: Partida): void {
+guardarPartida(partida: Partida): void {
   const partidas = this.getPartidas();
 
-  const index = partidas.findIndex(p => p.id === partida.id);
+  // Usar `juego_id` como identificador único si no hay `id`
+  const index = partidas.findIndex(p => p.juego_id === partida.juego_id);
+
   if (index !== -1) {
-    // Ya existe → actualiza
-    partidas[index] = partida;
+    partidas[index] = partida; // Actualiza
   } else {
-    // No existe → agrega nueva
-    partidas.push(partida);
+    partidas.push(partida); // Agrega
   }
 
   localStorage.setItem(this.storageKey, JSON.stringify(partidas));
-
-  // Establecer también como partida activa
   this.establecerPartidaActiva(partida);
 }
 
@@ -36,16 +34,9 @@ export class PartidaService {
   establecerPartidaActiva(partida: Partida): void {
     localStorage.setItem(this.partidaActivaKey, JSON.stringify(partida));
   }
-
-  // Obtener la partida activa
+// Obtener la partida activa
   obtenerPartidaActiva(): Partida | undefined {
   return JSON.parse(localStorage.getItem('partidaActiva') || 'null') || undefined;
-}
-
-
-  // Limpiar partida activa (por ejemplo, al terminar)
-  limpiarPartidaActiva(): void {
-    localStorage.removeItem(this.partidaActivaKey);
   }
 }
 

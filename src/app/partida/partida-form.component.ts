@@ -31,32 +31,25 @@ export class PartidaFormComponent implements OnInit {
     this.usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
   }
 
-  crearPartida() {
-    if (this.jugador1Id === this.jugador2Id) {
-      alert('Selecciona dos jugadores diferentes.');
-      return;
-    }
+crearPartida() {
+  if (this.jugador1Id === this.jugador2Id) {
+    alert('Selecciona dos jugadores diferentes.');
+    return;
+  }
 
-    const nuevaPartida: Partida = {
-      id: Date.now(),
-      jugador1Id: this.jugador1Id,
-      jugador2Id: this.jugador2Id,
-      fecha: new Date().toISOString(),
-      aciertos: {
-        jugador1: 0,
-        jugador2: 0
-      }
-    };
+  const nuevaPartida: Partida = {
+    id: Date.now(),
+    juego_id: `${this.jugador1Id}-${this.jugador2Id}-${Date.now()}`, // crear un ID único
+    fecha: new Date().toISOString(),
+    tiempo: 0, // Inicia en 0, puedes actualizarlo en el tablero
+    nivel: 'Fácil' // o el valor que selecciones
+  };
 
-    // Guardar la partida en el historial
   this.partidaService.guardarPartida(nuevaPartida);
-
-  // Establecerla como la partida activa
-  this.partidaService.establecerPartidaActiva(nuevaPartida); 
+  this.partidaService.establecerPartidaActiva(nuevaPartida);
 
   alert('¡Partida creada exitosamente!');
-  this.router.navigate(['/partida'])
-  
-  }
-  
+  this.router.navigate(['/partida']);
+}
+
 }

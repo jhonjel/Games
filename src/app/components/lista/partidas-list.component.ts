@@ -9,13 +9,7 @@ import { Partida } from '../../models/partida.model';
   template: `
     <h2>Historial de Partidas</h2>
     <ul>
-      <li *ngFor="let partida of partidas">
-        Fecha: {{ partida.fecha | date:'short' }},
-        Jugador 1: {{ partida.jugador1Id }},
-        Jugador 2: {{ partida.jugador2Id }},
-        Aciertos - J1: {{ partida.aciertos.jugador1 }},
-        J2: {{ partida.aciertos.jugador2 }}
-      </li>
+
     </ul>
   `
 })

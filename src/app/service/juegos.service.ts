@@ -7,9 +7,9 @@ import { Juego } from '../models/juego.model';
 })
 export class JuegosService {
 
-   private apiUrl = 'https://apigame.gonzaloandreslucio.com/api/juegos';
+   private readonly apiUrl = 'https://apigame.gonzaloandreslucio.com/api/juegos';
 
-  constructor( private http: HttpClient) { }
+  constructor( private readonly http: HttpClient) { }
 
     // Cabeceras HTTP para las peticiones
   private getHeaders(): HttpHeaders {

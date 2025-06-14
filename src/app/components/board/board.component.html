@@ -38,8 +38,8 @@
           <i class="fas fa-user"></i>
         </div>
         <div class="player-details">
-          <strong>{{ jugador1?.nombre }}</strong>
-          <span>Aciertos: {{ scores[1] }}</span>
+          <strong>Jugador 1</strong>
+          <span>Aciertos: {{ puntajeJugador1 }}</span>
         </div>
       </div>
       
@@ -48,8 +48,8 @@
           <i class="fas fa-user"></i>
         </div>
         <div class="player-details">
-          <strong>{{ jugador2?.nombre }}</strong>
-          <span>Aciertos: {{ scores[2] }}</span>
+          <strong>Jugador 2</strong>
+          <span>Aciertos: {{ puntajeJugador2 }}</span>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
       <p>
         Turno actual:
         <strong>
-          {{ currentPlayer === 1 ? jugador1?.nombre : jugador2?.nombre }}
+          {{ currentPlayer === 1 ? 'Jugador 1' : 'Jugador 2' }}
         </strong>
       </p>
     </div>
@@ -81,6 +81,7 @@
     </button>
   </div>
 </div>
+
 
 
   

@@ -41,6 +41,7 @@ export class PartidaFormComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   crearPartida(): void {
     const jugador1 = this.usuarios.find(u => u.id === this.jugador1Id);
     const jugador2 = this.usuarios.find(u => u.id === this.jugador2Id);
@@ -77,4 +78,27 @@ export class PartidaFormComponent implements OnInit {
   public navigateToRegistro(): void {
     this.router.navigate(['/registrarme']);
   }
+=======
+crearPartida() {
+  if (this.jugador1Id === this.jugador2Id) {
+    alert('Selecciona dos jugadores diferentes.');
+    return;
+  }
+
+  const nuevaPartida: Partida = {
+    id: Date.now(),
+    juego_id: `${this.jugador1Id}-${this.jugador2Id}-${Date.now()}`, // crear un ID único
+    fecha: new Date().toISOString(),
+    tiempo: 0, // Inicia en 0, puedes actualizarlo en el tablero
+    nivel: 'Fácil' // o el valor que selecciones
+  };
+
+  this.partidaService.guardarPartida(nuevaPartida);
+  this.partidaService.establecerPartidaActiva(nuevaPartida);
+
+  alert('¡Partida creada exitosamente!');
+  this.router.navigate(['/partida']);
+}
+
+>>>>>>> 36b8b4629776517ed2d8e9889ffc151e42d9870c
 }

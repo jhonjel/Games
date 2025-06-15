@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&display=swap')
+
+// SASS Variables for Colors
+$primary-pink: #d63384
+$secondary-pink: #ff9a9e
+$tertiary-pink: #fecfef
+$light-pink: #fff0f6
+$shadow-pink: #f78fc2
+$purple-accent: #8e44ad
+$button-start-pink: #ff6b9d
+$button-end-pink: #ff8a80
+$button2-start-green: #a8e6cf
+$button2-end-green: #88d8c0
+$button2-text-green: #2d5a27
+$heart-pink: #ff69b4
+
+// Font Variables
+$font-body: 'Playfair Display', serif
+$font-title: 'Dancing Script', cursive
+
+body, html
+  margin: 0
+  padding: 0
+  height: 100%
+  font-family: $font-body
+  background: radial-gradient(circle at 20% 80%, $secondary-pink 0%, $tertiary-pink 100%)
+  background-image: url('/assets/fondo-espacio.png') // optional
+  background-size: cover
+  background-position: center
+  overflow-x: hidden
+  position: relative
+
+/* Main Container */
+.registro-container
+  text-align: center
+  padding: 40px
+  border-radius: 20px
+  margin: 5% auto
+  width: 90%
+  max-width: 500px
+  background-color: $light-pink
+  box-shadow: 0px 0px 25px $shadow-pink
+  color: $primary-pink
+  position: relative
+
+  /* Title */
+  h1
+    font-family: $font-title
+    font-size: 3rem
+    color: $primary-pink
+    margin-bottom: 15px
+    position: relative
+
+  /* Subtitles */
+  h2
+    font-size: 1.5rem
+    color: $purple-accent
+
+  /* Inputs */
+  input
+    padding: 10px
+    width: 80%
+    margin: 10px auto
+    border-radius: 10px
+    border: 1px solid $primary-pink
+    font-size: 1rem
+    color: $purple-accent
+    background-color: $light-pink
+
+    &:focus
+      outline: none
+      border: 2px solid $primary-pink
+
+  /* Buttons */
+  button
+    display: block
+    width: 80%
+    margin: 10px auto
+    padding: 15px
+    border: none
+    border-radius: 35px
+    font-size: 1.2em
+    font-weight: bold
+    cursor: pointer
+    transition: 0.3s ease
+    font-family: $font-body
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1)
+
+    &:nth-of-type(1)
+      background: linear-gradient(135deg, $button-start-pink, $button-end-pink)
+      color: white
+
+    &:nth-of-type(2)
+      background: linear-gradient(135deg, $button2-start-green, $button2-end-green)
+      color: $button2-text-green
+
+    &:hover
+      transform: scale(1.05)
+      opacity: 0.95
+
+/* Floating Hearts */
+.heart
+  position: absolute
+  color: $heart-pink
+  font-size: 1.5rem
+  opacity: 0
+  pointer-events: none
+  animation: float-heart 3s ease-out forwards
+
+@keyframes float-heart
+  0%
+    opacity: 1
+    transform: translateY(0) scale(1)
+  100%
+    opacity: 0
+    transform: translateY(-100px) scale(0.5)

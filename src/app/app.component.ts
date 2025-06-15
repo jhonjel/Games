@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IniciarComponent } from './components/iniciar/iniciar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ IniciarComponent ],
+  imports: [RouterOutlet ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
   standalone: true

@@ -1,113 +1,145 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&display=swap')
+// Importar módulo de color de SASS
+@use "sass:color"; // <-- ¡Añadido para usar funciones de color!
 
-// SASS Variables for Colors
-$primary-pink: #d63384
-$secondary-pink: #ff9a9e
-$tertiary-pink: #fecfef
-$light-pink: #fff0f6
-$shadow-pink: #f78fc2
-$purple-accent: #8e44ad
-$button-start-pink: #ff6b9d
-$button-end-pink: #ff8a80
-$button2-start-green: #a8e6cf
-$button2-end-green: #88d8c0
-$button2-text-green: #2d5a27
-$heart-pink: #ff69b4
+// Importar fuente Inter de Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 
-// Font Variables
-$font-body: 'Playfair Display', serif
-$font-title: 'Dancing Script', cursive
+// Variables de colores para el nuevo diseño (basado en la imagen)
+$primary-blue: #007bff // Azul vibrante para botones principales
+$light-blue: #e8f4ff  // Azul muy claro para fondos sutiles
+$dark-text: #333      // Color de texto oscuro
+$medium-gray: #666    // Color de texto secundario
+$border-gray: #ccc    // Color para bordes y líneas sutiles
+$white-bg: #fff       // Fondo blanco para el contenedor
+$shadow-light: rgba(0, 0, 0, 0.1) // Sombra suave
+$shadow-strong: rgba(0, 0, 0, 0.2) // Sombra más pronunciada
+
+// Variables de fuentes
+$font-main: 'Inter', sans-serif
 
 body, html
   margin: 0
   padding: 0
   height: 100%
-  font-family: $font-body
-  background: radial-gradient(circle at 20% 80%, $secondary-pink 0%, $tertiary-pink 100%)
-  background-image: url('/assets/fondo-espacio.png') // optional
-  background-size: cover
-  background-position: center
+  font-family: $font-main
+  background-color: #f0f2f5 // Un fondo muy claro y neutro para el body
+  display: flex // Usar flexbox para centrar el contenedor principal
+  justify-content: center
+  align-items: center
   overflow-x: hidden
   position: relative
 
-/* Main Container */
+/* Contenedor principal */
 .registro-container
   text-align: center
   padding: 40px
-  border-radius: 20px
-  margin: 5% auto
+  border-radius: 15px // Esquinas más redondeadas
   width: 90%
-  max-width: 500px
-  background-color: $light-pink
-  box-shadow: 0px 0px 25px $shadow-pink
-  color: $primary-pink
+  max-width: 450px // Un poco más estrecho para el estilo de la imagen
+  background-color: $white-bg
+  box-shadow: 0px 8px 25px $shadow-light // Sombra más suave y moderna
+  color: $dark-text
+  position: relative // Para elementos internos posicionados
+  margin: 20px // Margen para pantallas más pequeñas
+
+/* Título */
+h1
+  font-family: $font-main
+  font-size: 2rem // Tamaño de fuente ajustado
+  font-weight: 600 // Un poco más de peso
+  color: $dark-text
+  margin-bottom: 25px // Más espacio debajo del título
   position: relative
+  display: inline-block // Para que el borde inferior se ajuste al texto
 
-  /* Title */
-  h1
-    font-family: $font-title
-    font-size: 3rem
-    color: $primary-pink
-    margin-bottom: 15px
-    position: relative
-
-  /* Subtitles */
-  h2
-    font-size: 1.5rem
-    color: $purple-accent
-
-  /* Inputs */
-  input
-    padding: 10px
-    width: 80%
-    margin: 10px auto
-    border-radius: 10px
-    border: 1px solid $primary-pink
-    font-size: 1rem
-    color: $purple-accent
-    background-color: $light-pink
-
-    &:focus
-      outline: none
-      border: 2px solid $primary-pink
-
-  /* Buttons */
-  button
+  // Subrayado azul debajo del título "Crear Partida"
+  &::after
+    content: ''
     display: block
-    width: 80%
-    margin: 10px auto
-    padding: 15px
-    border: none
-    border-radius: 35px
-    font-size: 1.2em
-    font-weight: bold
-    cursor: pointer
-    transition: 0.3s ease
-    font-family: $font-body
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1)
+    width: 60% // Ancho del subrayado
+    height: 3px // Grosor del subrayado
+    background-color: $primary-blue
+    margin: 8px auto 0 // Centrar y separar del texto
+    border-radius: 2px // Bordes redondeados para el subrayado
 
-    &:nth-of-type(1)
-      background: linear-gradient(135deg, $button-start-pink, $button-end-pink)
-      color: white
+/* Subtítulos de jugador */
+.jugador h2
+  font-size: 1.1rem // Tamaño de fuente para los labels de jugador
+  font-weight: 500
+  color: $medium-gray // Color de texto un poco más suave
+  margin-bottom: 10px // Espacio entre el label y el select
+  text-align: left // Alinear el texto a la izquierda
+  width: 80% // Mismo ancho que el select
+  margin-left: auto
+  margin-right: auto
 
-    &:nth-of-type(2)
-      background: linear-gradient(135deg, $button2-start-green, $button2-end-green)
-      color: $button2-text-green
+/* Selectores de jugador (Dropdowns) */
+select
+  padding: 12px 15px // Más padding para mejor apariencia
+  width: 80%
+  margin: 10px auto 20px auto // Espacio entre selects
+  border-radius: 8px // Bordes suavemente redondeados
+  border: 1px solid $border-gray // Borde sutil
+  font-size: 1rem
+  color: $dark-text
+  background-color: $white-bg
+  appearance: none // Remover estilos nativos del navegador
+  -webkit-appearance: none
+  -moz-appearance: none
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M216.49%2099.51l-80%2080a12%2012%200%2001-17%200l-80-80a12%2012%200%200117-17L128%20150l71.51-71.49a12%2012%200%200117%2017z%22%2F%3E%3C%2Fsvg%3E') // Flecha SVG personalizada
+  background-repeat: no-repeat
+  background-position: right 15px center
+  background-size: 1em // Tamaño de la flecha
 
+  &:focus
+    outline: none
+    border-color: $primary-blue // Borde azul al enfocar
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.2) // Sombra suave al enfocar
+
+/* Contenedor de botones */
+.botones
+  margin-top: 30px // Más espacio entre selects y botones
+
+/* Botones */
+button
+  display: block
+  width: 80%
+  margin: 15px auto // Más margen vertical entre botones
+  padding: 15px
+  border: none
+  border-radius: 50px // Botones completamente redondeados (forma de píldora)
+  font-size: 1.1em
+  font-weight: 600 // Texto un poco más grueso
+  cursor: pointer
+  transition: all 0.3s ease // Transición para todas las propiedades
+  font-family: $font-main
+  box-shadow: 0 5px 15px $shadow-light // Sombra más suave
+
+  &:nth-of-type(1) // Botón "Iniciar Partida" (azul sólido)
+    background-color: $primary-blue
+    color: white
     &:hover
-      transform: scale(1.05)
-      opacity: 0.95
+      background-color: color.adjust($primary-blue, $lightness: -10%) // Oscurecer al pasar el ratón
+      box-shadow: 0 8px 20px $shadow-strong // Sombra más pronunciada
+      transform: translateY(-2px) // Ligero efecto de levantamiento
 
-/* Floating Hearts */
+  &:nth-of-type(2) // Botón "Registrar Jugador" (blanco con borde azul)
+    background-color: $white-bg
+    color: $primary-blue
+    border: 1px solid $primary-blue // Borde azul
+    &:hover
+      background-color: $light-blue // Fondo azul claro al pasar el ratón
+      color: color.adjust($primary-blue, $lightness: -10%)
+      border-color: color.adjust($primary-blue, $lightness: -10%)
+      box-shadow: 0 8px 20px $shadow-strong
+      transform: translateY(-2px)
+
+// Ocultar los corazones flotantes, ya que no están en la imagen
 .heart
-  position: absolute
-  color: $heart-pink
-  font-size: 1.5rem
-  opacity: 0
-  pointer-events: none
-  animation: float-heart 3s ease-out forwards
+  display: none
 
 @keyframes float-heart
+  // No se usan estas keyframes, pero se dejan por consistencia si algo las referenciara
   0%
     opacity: 1
     transform: translateY(0) scale(1)

@@ -110,8 +110,8 @@ export class IniciarComponent implements OnInit {
   /**
    * Navega de vuelta a la página de inicio.
    */
-  volver() {
-    this.router.navigate(['/']);
+  RegistrarUsuario() {
+    this.router.navigate(['/registrar']);
   }
 
 }

@@ -13,9 +13,8 @@ import { UsuariosService } from '../../services/usuarios.service';
   styleUrl: './iniciar.component.sass'
 })
 export class IniciarComponent implements OnInit {
-   usuarios: Usuario[] = [];
+    usuarios: Usuario[] = [];
 
-  // Inicialización de jugadores con la nueva estructura de Usuario (name, password_confirmation, juego_id: number)
   jugador1: Usuario = { id: '', name: '', email: '', password: '', password_confirmation: '', juego_id: '' };
   jugador2: Usuario = { id: '', name: '', email: '', password: '', password_confirmation: '', juego_id: '' };
 
@@ -39,7 +38,7 @@ export class IniciarComponent implements OnInit {
     this.usuariosService.getUsuarios().subscribe({
       next: (data: Usuario[]) => {
         this.usuarios = data;
-        console.log('Usuarios cargados:', this.usuarios);
+        console.log('Usuarios cargados:', this.usuarios); // ¡Reactivado para mostrar el array!
         this.loadingUsers = false;
 
         // Opcional: Pre-seleccionar los primeros dos usuarios si existen
@@ -86,7 +85,7 @@ export class IniciarComponent implements OnInit {
         password_confirmation: parsedJugador2.password_confirmation || parsedJugador2.password_confirm || '',
         juego_id: parsedJugador2.juego_id || (parsedJugador2.idjuego ? parseInt(parsedJugador2.idjuego, 10) : 0)
       };
-      console.log('Jugadores de localStorage cargados y adaptados:', this.jugador1, this.jugador2);
+      // console.log('Jugadores de localStorage cargados y adaptados:', this.jugador1, this.jugador2); // ¡Esta línea permanece comentada!
     }
   }
 
@@ -108,10 +107,9 @@ export class IniciarComponent implements OnInit {
   }
 
   /**
-   * Navega de vuelta a la página de inicio.
+   * Navega a la página de registro de usuario.
    */
   RegistrarUsuario() {
     this.router.navigate(['/registrar']);
   }
-
 }

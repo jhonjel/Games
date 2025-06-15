@@ -60,7 +60,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   // Variable para manejar el mensaje de error en la carga de jugadores
   errorMessage: string = '';
 
-  private readonly ID_JUEGO_FIJO: string = "95ad5c3b-d186-4d62-a5f6-3548186e6d5b";
+  private readonly ID_JUEGO_FIJO: string = "de5b558c-964c-4929-ab1e-343500c792d4";
 
   constructor(
     private juegosService: JuegosService,

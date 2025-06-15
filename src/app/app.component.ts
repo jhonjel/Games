@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { BoardComponent } from './components/board/board.component';
+import { IniciarComponent } from './components/iniciar/iniciar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ BoardComponent],
+  imports: [ IniciarComponent ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
   standalone: true

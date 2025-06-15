@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
 import { UsuariosService } from '../../services/usuarios.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-iniciar',
-  imports: [ HttpClientModule, FormsModule],
+  imports: [ HttpClientModule, FormsModule, CommonModule ],
   templateUrl: './iniciar.component.html',
   styleUrl: './iniciar.component.sass'
 })

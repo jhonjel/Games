@@ -1,5 +1,5 @@
 <!-- src/app/components/board/board.component.html -->
-
+<div class="game-wrapper">
 <!-- Renderiza el contenido del juego solo si los jugadores están cargados y tienen IDs -->
 <ng-container *ngIf="jugador1?.id && jugador2?.id; else loadingOrError">
   <div class="game-container">
@@ -47,3 +47,4 @@
 
   </div>
 </ng-template>
+</div>

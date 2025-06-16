@@ -7,4 +7,5 @@ export const routes: Routes = [
   { path: '', component: IniciarComponent },
   { path: 'registrar', component: RegistrarComponent },
   { path: 'juego', component: BoardComponent },
+  { path: 'registro', component: RegistrarComponent },
 ];

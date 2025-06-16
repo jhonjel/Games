@@ -1,20 +1,20 @@
-// Importar módulo de color de SASS
-@use "sass:color"; // <-- ¡Añadido para usar funciones de color!
-
-// Importar fuente Inter de Google Fonts
+@use "sass:color"
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 
-// Variables de colores para el nuevo diseño (basado en la imagen)
-$primary-blue: #007bff // Azul vibrante para botones principales
-$light-blue: #e8f4ff  // Azul muy claro para fondos sutiles
-$dark-text: #333      // Color de texto oscuro
-$medium-gray: #666    // Color de texto secundario
-$border-gray: #ccc    // Color para bordes y líneas sutiles
-$white-bg: #fff       // Fondo blanco para el contenedor
-$shadow-light: rgba(0, 0, 0, 0.1) // Sombra suave
-$shadow-strong: rgba(0, 0, 0, 0.2) // Sombra más pronunciada
+// Colores
+$primary-purple: #a78bfa
+$hover-purple: #7c3aed
+$light-bg: #f5f3ff
+$light-purple: #f4f0ff
+$dark-purple: #7c3aed
+$white: #ffffff
+$dark-text: #2d2d2d
+$gray-text: #666
+$border-color: #d1d5db
+$shadow-light: rgba(124, 58, 237, 0.15)
+$shadow-strong: rgba(124, 58, 237, 0.3)
 
-// Variables de fuentes
+// Tipografía
 $font-main: 'Inter', sans-serif
 
 body, html
@@ -22,127 +22,119 @@ body, html
   padding: 0
   height: 100%
   font-family: $font-main
-  background-color: #f0f2f5 // Un fondo muy claro y neutro para el body
-  display: flex // Usar flexbox para centrar el contenedor principal
+  background-color: $light-bg
+  display: flex
   justify-content: center
   align-items: center
   overflow-x: hidden
-  position: relative
+// Contenedor que ocupa toda la pantalla
+.registro-wrapper
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: $light-bg // o el fondo morado claro
+  padding: 20px
 
-/* Contenedor principal */
 .registro-container
   text-align: center
   padding: 40px
-  border-radius: 15px // Esquinas más redondeadas
+  border-radius: 15px
   width: 90%
-  max-width: 450px // Un poco más estrecho para el estilo de la imagen
-  background-color: $white-bg
-  box-shadow: 0px 8px 25px $shadow-light // Sombra más suave y moderna
+  max-width: 450px
+  background-color: $white
+  box-shadow: 0px 10px 30px $shadow-light
   color: $dark-text
-  position: relative // Para elementos internos posicionados
-  margin: 20px // Margen para pantallas más pequeñas
+  margin: 20px
 
-/* Título */
 h1
-  font-family: $font-main
-  font-size: 2rem // Tamaño de fuente ajustado
-  font-weight: 600 // Un poco más de peso
-  color: $dark-text
-  margin-bottom: 25px // Más espacio debajo del título
+  font-size: 2rem
+  font-weight: 600
+  margin-bottom: 25px
   position: relative
-  display: inline-block // Para que el borde inferior se ajuste al texto
 
-  // Subrayado azul debajo del título "Crear Partida"
   &::after
     content: ''
     display: block
-    width: 60% // Ancho del subrayado
-    height: 3px // Grosor del subrayado
-    background-color: $primary-blue
-    margin: 8px auto 0 // Centrar y separar del texto
-    border-radius: 2px // Bordes redondeados para el subrayado
+    width: 60%
+    height: 3px
+    background-color: $primary-purple
+    margin: 8px auto 0
+    border-radius: 2px
 
-/* Subtítulos de jugador */
 .jugador h2
-  font-size: 1.1rem // Tamaño de fuente para los labels de jugador
+  font-size: 1.1rem
   font-weight: 500
-  color: $medium-gray // Color de texto un poco más suave
-  margin-bottom: 10px // Espacio entre el label y el select
-  text-align: left // Alinear el texto a la izquierda
-  width: 80% // Mismo ancho que el select
+  color: $gray-text
+  margin-bottom: 10px
+  text-align: left
+  width: 80%
   margin-left: auto
   margin-right: auto
 
-/* Selectores de jugador (Dropdowns) */
 select
-  padding: 12px 15px // Más padding para mejor apariencia
+  padding: 12px 15px
   width: 80%
-  margin: 10px auto 20px auto // Espacio entre selects
-  border-radius: 8px // Bordes suavemente redondeados
-  border: 1px solid $border-gray // Borde sutil
+  margin: 10px auto 20px auto
+  border-radius: 10px
+  border: 1px solid $border-color
   font-size: 1rem
   color: $dark-text
-  background-color: $white-bg
-  appearance: none // Remover estilos nativos del navegador
-  -webkit-appearance: none
-  -moz-appearance: none
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M216.49%2099.51l-80%2080a12%2012%200%2001-17%200l-80-80a12%2012%200%200117-17L128%20150l71.51-71.49a12%2012%200%200117%2017z%22%2F%3E%3C%2Fsvg%3E') // Flecha SVG personalizada
+  background-color: $white
+  appearance: none
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M216.49%2099.51l-80%2080a12%2012%200%2001-17%200l-80-80a12%2012%200%200117-17L128%20150l71.51-71.49a12%2012%200%200117%2017z%22%2F%3E%3C%2Fsvg%3E')
   background-repeat: no-repeat
   background-position: right 15px center
-  background-size: 1em // Tamaño de la flecha
+  background-size: 1em
 
   &:focus
     outline: none
-    border-color: $primary-blue // Borde azul al enfocar
-    box-shadow: 0 0 0 3px rgba($primary-blue, 0.2) // Sombra suave al enfocar
+    border-color: $primary-purple
+    box-shadow: 0 0 0 4px $shadow-light
 
-/* Contenedor de botones */
 .botones
-  margin-top: 30px // Más espacio entre selects y botones
+  margin-top: 30px
 
-/* Botones */
 button
   display: block
   width: 80%
-  margin: 15px auto // Más margen vertical entre botones
-  padding: 15px
+  margin: 15px auto
+  padding: 14px
   border: none
-  border-radius: 50px // Botones completamente redondeados (forma de píldora)
+  border-radius: 40px
   font-size: 1.1em
-  font-weight: 600 // Texto un poco más grueso
+  font-weight: 600
   cursor: pointer
-  transition: all 0.3s ease // Transición para todas las propiedades
+  transition: all 0.25s ease
   font-family: $font-main
-  box-shadow: 0 5px 15px $shadow-light // Sombra más suave
+  box-shadow: 0 4px 12px $shadow-light
+  transform: translateY(0)
+  position: relative
 
-  &:nth-of-type(1) // Botón "Iniciar Partida" (azul sólido)
-    background-color: $primary-blue
-    color: white
-    &:hover
-      background-color: color.adjust($primary-blue, $lightness: -10%) // Oscurecer al pasar el ratón
-      box-shadow: 0 8px 20px $shadow-strong // Sombra más pronunciada
-      transform: translateY(-2px) // Ligero efecto de levantamiento
+  &:active
+    transform: scale(0.98)
 
-  &:nth-of-type(2) // Botón "Registrar Jugador" (blanco con borde azul)
-    background-color: $white-bg
-    color: $primary-blue
-    border: 1px solid $primary-blue // Borde azul
+  &:nth-of-type(1)
+    background-color: $primary-purple
+    color: $white
+
     &:hover
-      background-color: $light-blue // Fondo azul claro al pasar el ratón
-      color: color.adjust($primary-blue, $lightness: -10%)
-      border-color: color.adjust($primary-blue, $lightness: -10%)
+      background-color: $hover-purple
       box-shadow: 0 8px 20px $shadow-strong
       transform: translateY(-2px)
 
-// Ocultar los corazones flotantes, ya que no están en la imagen
+  &:nth-of-type(2)
+    background-color: $white
+    color: $primary-purple
+    border: 1px solid $primary-purple
+
+    &:hover
+      background-color: $light-bg
+      color: $hover-purple
+      border-color: $hover-purple
+      box-shadow: 0 8px 20px $shadow-strong
+      transform: translateY(-2px)
+
 .heart
   display: none
 
-@keyframes float-heart
-  // No se usan estas keyframes, pero se dejan por consistencia si algo las referenciara
-  0%
-    opacity: 1
-    transform: translateY(0) scale(1)
-  100%
-    opacity: 0
-    transform: translateY(-100px) scale(0.5)

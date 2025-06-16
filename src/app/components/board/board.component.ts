@@ -259,17 +259,17 @@ export class BoardComponent implements OnInit, OnDestroy {
         console.log('Objeto aciertos Jugador 2 a enviar (payload):', aciertosJugador2Payload);
 
         this.aciertosService.createAcierto(aciertosJugador1Payload).subscribe({
-          next: () => console.log('✅ Aciertos jugador 1 guardados'),
-          error: err => console.error('❌ Error guardar aciertos jugador 1', err)
+          next: () => console.log(' Aciertos jugador 1 guardados'),
+          error: err => console.error(' Error guardar aciertos jugador 1', err)
         });
 
         this.aciertosService.createAcierto(aciertosJugador2Payload).subscribe({
-          next: () => console.log('✅ Aciertos jugador 2 guardados'),
-          error: err => console.error('❌ Error guardar aciertos jugador 2', err)
+          next: () => console.log(' Aciertos jugador 2 guardados'),
+          error: err => console.error(' Error guardar aciertos jugador 2', err)
         });
       },
       error: (err) => {
-        console.error('❌ Error al guardar partida:', err);
+        console.error(' Error al guardar partida:', err);
         if (err.error && err.error.message) {
           console.error('Mensaje del servidor (partida):', err.error.message);
         }

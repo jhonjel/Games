@@ -1,0 +1,129 @@
+@use "sass:color"
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
+
+// Paleta
+$primary-purple: #a78bfa
+$light-purple: #f4f0ff
+$light-bg: #f4f0ff
+$dark-text: #333
+$gray: #999
+$border-gray: #ccc
+$white: #fff
+$shadow: rgba(122, 95, 243, 0.2)
+$shadow-strong: rgba(122, 95, 243, 0.3)
+
+$font-main: 'Inter', sans-serif
+
+*
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+html, body, app-root
+  margin: 0
+  padding: 0
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #f4f0ff
+
+
+// 💡 Esto es CLAVE para que Angular no rompa el centrado
+app-root, router-outlet
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+  height: 100%
+
+// Contenedor que ocupa toda la pantalla
+.registro-wrapper
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: $light-bg // o el fondo morado claro
+  padding: 20px
+
+
+.form-container
+  background-color: $white
+  padding: 3rem 2.5rem
+  border-radius: 20px
+  box-shadow: 0 10px 30px $shadow
+  width: 100%
+  max-width: 500px
+  text-align: center
+
+  h2
+    color: $primary-purple
+    font-weight: 600
+    font-size: 2rem
+    margin-bottom: 1.5rem
+    position: relative
+
+    &::after
+      content: ''
+      width: 50px
+      height: 3px
+      background-color: $primary-purple
+      margin: 10px auto 0
+      display: block
+      border-radius: 2px
+
+  form
+    display: flex
+    flex-direction: column
+    gap: 1.2rem
+
+  input
+    padding: 14px
+    border: 1px solid $border-gray
+    border-radius: 8px
+    font-size: 1rem
+    width: 100%
+    font-family: $font-main
+    background: $white
+    transition: 0.3s
+
+    &:focus
+      outline: none
+      border-color: $primary-purple
+      box-shadow: 0 0 0 3px rgba($primary-purple, 0.15)
+
+  button
+    padding: 14px
+    font-size: 1.05rem
+    font-weight: 600
+    border-radius: 30px
+    cursor: pointer
+    font-family: $font-main
+    width: 100%
+    transition: all 0.3s ease
+    border: none
+
+    &:first-of-type
+      background-color: $primary-purple
+      color: $white
+      box-shadow: 0 4px 12px $shadow
+
+      &:hover
+        background-color: color.adjust($primary-purple, $lightness: -8%)
+        transform: translateY(-2px)
+        box-shadow: 0 6px 18px $shadow-strong
+
+    &:last-of-type
+      background-color: transparent
+      color: $primary-purple
+      border: 2px solid $primary-purple
+
+      &:hover
+        background-color: $light-purple
+        transform: translateY(-2px)
+        box-shadow: 0 6px 15px $shadow
+
+p
+  color: $gray
+  font-size: 0.95rem
+  margin-top: 1rem

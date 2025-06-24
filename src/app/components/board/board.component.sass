@@ -1,266 +1,96 @@
+@use "sass:color"
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap')
+
 // Variables
-$primary: #4361ee
-$secondary: #7209b7
-$accent-color: #4cc9f0 // ¡Esta es la que faltaba!
-$success: #4caf50
-$error: #f72585
-$light: #f8f9fa
-$dark: #212529
-$gray: #6c757d
-$border: #dee2e6
-$shadow: 0 4px 20px rgba(0, 0, 0, 0.1)
-$card-bg: #ffffff
-$text-light: rgba(255, 255, 255, 0.8)
-$bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+$primary: #6c5ce7
+$light-bg: #f4f0ff
+$white: #fff
+$shadow: rgba(0, 0, 0, 0.1)
 
-// ... el resto de tu código Sass
+body, html
+  margin: 0
+  padding: 0
+  height: 100%
+  font-family: 'Inter', sans-serif
+  background-color: $light-bg
 
-// Mixins
-=transition($property: all, $duration: 0.3s)
-  transition: $property $duration ease
+.game-wrapper
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 100vh
+  padding: 1rem
 
-=box-shadow($shadow)
-  box-shadow: $shadow
-
-// Mixin para estilos comunes de tarjetas/paneles
-=card-base($bg-color: rgba(255, 255, 255, 0.1), $padding: 1.5rem, $radius: 12px)
-  background: $bg-color
-  padding: $padding
-  border-radius: $radius
-  +box-shadow(none) // Quitar sombra por defecto si no es deseada en todas las tarjetas
-  @content // Permite añadir más estilos específicos al incluir el mixin
-
-// Mixin para la línea decorativa de títulos
-=title-underline($width: 50px, $height: 3px, $bg-color: $success)
-  content: ''
-  position: absolute
-  bottom: 0
-  left: 50%
-  transform: translateX(-50%)
-  width: $width
-  height: $height
-  background: $bg-color
-  border-radius: 2px
-
-// Placeholder selector para estilos de botones base
-%btn-base
-  padding: 0.75rem 1.5rem
-  border: none
-  border-radius: 50px // Radio de 50px para botones redondos
-  font-size: 1.1rem
-  font-weight: 600
-  cursor: pointer
-  +transition
-  text-align: center
-  text-decoration: none
-  display: inline-block // Para que +width: 100% funcione en HTML
-
-// Estilos base
 .game-container
-  max-width: 800px
-  margin: 2rem auto
-  padding: 1.5rem
-  background: $bg-gradient
-  border-radius: 16px
-  +box-shadow($shadow)
-  color: white
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  background-color: $white
+  padding: 2rem
+  border-radius: 20px
+  box-shadow: 0 10px 25px $shadow
+  max-width: 900px
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
 
 .game-header
   text-align: center
-  margin-bottom: 1.5rem
-  padding-bottom: 1rem
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2)
-  
-  h2
-    font-size: 2.2rem
-    font-weight: 700
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
-    position: relative // Necesario para el ::after
-    padding-bottom: 0.5rem // Asegura espacio para la línea
-    &::after
-      +title-underline(60px, 3px, $accent-color) // Usa el mixin para el título
+  margin-bottom: 1rem
 
-.game-info-container
-  +card-base(rgba(255, 255, 255, 0.1)) // Usa el mixin de base para tarjetas
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-  gap: 1.5rem
-  margin-bottom: 1.5rem
-  backdrop-filter: blur(10px)
+  h1
+    font-size: 2rem
+    color: $primary
+    margin-bottom: 0.5rem
 
-.game-info
-  display: grid
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr))
-  gap: 1rem
-
-  .info-card
-    display: flex
-    align-items: center
-    gap: 1rem
-    +card-base(rgba(255, 255, 255, 0.15), 1rem, 10px) // Reutiliza el mixin
-    +transition
-    
-    &:hover
-      background: rgba(255, 255, 255, 0.25)
-      transform: translateY(-3px)
-    
-    i
-      font-size: 1.8rem
-      color: $success
-    
-    h3
-      font-size: 0.9rem
-      font-weight: 600
-      margin-bottom: 0.3rem
-      color: $text-light // Usa variable para el color de texto
-    
-    p
-      font-size: 1.1rem
-      font-weight: 600
-      margin: 0
-
-.players-score
-  h3
-    font-size: 1.3rem
-    margin-bottom: 1rem
-    text-align: center
-    color: white
-    position: relative
-    padding-bottom: 0.5rem
-    
-    &::after
-      +title-underline() // Usa el mixin por defecto para la línea
-
-  .player
-    display: flex
-    align-items: center
-    gap: 1rem
-    +card-base(rgba(255, 255, 255, 0.1), 1rem, 10px) // Reutiliza el mixin
-    margin-bottom: 1rem
-    +transition
-    
-    .player-icon
-      width: 40px
-      height: 40px
-      border-radius: 50%
-      background: rgba(255, 255, 255, 0.2)
-      display: flex
-      justify-content: center
-      align-items: center
-      
-      i
-        color: white
-        font-size: 1.2rem
-    
-    .player-details
-      flex: 1
-      
-      strong
-        display: block
-        font-size: 1.1rem
-        margin-bottom: 0.2rem
-      
-      span
-        font-size: 0.9rem
-        color: $text-light
-  
-  .player.active
-    background: rgba(67, 97, 238, 0.3)
-    border: 2px solid $primary
-    transform: scale(1.02)
-    
-    .player-icon
-      background: $primary
-      +box-shadow(0 0 10px rgba($primary, 0.5))
-
-.turn-indicator
-  display: flex
-  align-items: center
-  justify-content: center
-  gap: 1rem
-  +card-base(rgba(255, 255, 255, 0.1), 1rem, 10px) // Reutiliza el mixin
-  grid-column: 1 / -1
-  margin-top: 1rem
-  animation: pulse 2s infinite
-  
-  i
-    font-size: 1.5rem
-    color: $success
-  
-  p
-    margin: 0
+  .scoreboard
     font-size: 1.1rem
-    
-    strong
-      color: $success
-      font-weight: 600
+    color: #333
 
-.grid-container
-  margin: 2rem 0
-  +card-base(rgba(255, 255, 255, 0.1)) // Reutiliza el mixin
-  backdrop-filter: blur(10px)
-
-.grid
+.board-grid
   display: grid
-  grid-template-columns: repeat(4, 1fr)
+  grid-template-columns: repeat(4, 100px)  // 4 columnas
+  grid-template-rows: repeat(3, 100px)     // 3 filas
   gap: 15px
-  max-width: 600px
-  margin: 0 auto
-  
-  // Estilo para las cartas (asumiendo que app-card ya tiene sus estilos)
-  app-card
-    aspect-ratio: 3/4
-    +transition(transform, 0.2s)
-    
-    &:hover
-      transform: translateY(-5px)
+  justify-content: center
+  margin: 2rem auto
 
-.actions
+
+.win-message
+  background-color: #e9f5ff
+  padding: 1rem
+  border-radius: 10px
   text-align: center
-  margin-top: 1.5rem
+  margin-bottom: 1rem
 
-.btn-end-game
-  @extend %btn-base // Extiende los estilos base del botón
-  background: linear-gradient(to right, #e74c3c, #e67e22)
-  color: white
-  +box-shadow(0 6px 15px rgba(231, 76, 60, 0.3))
-  
-  i
-    margin-right: 0.8rem
-  
-  &:hover
-    background: linear-gradient(to right, #c0392b, #d35400)
-    transform: translateY(-3px)
-    +box-shadow(0 8px 20px rgba(231, 76, 60, 0.4))
+  h2
+    color: #27ae60
+    margin-bottom: 0.5rem
 
-// Animaciones
-@keyframes pulse
-  0%
-    box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.4)
-  70%
-    box-shadow: 0 0 0 10px rgba(76, 201, 240, 0)
-  100%
-    box-shadow: 0 0 0 0 rgba(76, 201, 240, 0)
+.game-controls
+  margin-top: 2rem
+  display: flex
+  gap: 1rem
+  flex-wrap: wrap
+  justify-content: center
 
-// Responsive Mixin (para mayor concisión en Media Queries)
-=media-breakpoint-down($breakpoint)
-  @media (max-width: $breakpoint)
-    @content
+  button
+    padding: 0.8rem 1.5rem
+    font-size: 1rem
+    border: none
+    border-radius: 30px
+    cursor: pointer
+    background-color: $primary
+    color: $white
+    transition: all 0.3s ease
 
-// Responsive
-+media-breakpoint-down(768px)
-  .grid
+    &:hover
+      background-color: color.adjust($primary, $lightness: -8%)
+      transform: translateY(-2px)
+
+
+@media (max-width: 600px)
+  .board-grid
     grid-template-columns: repeat(3, 1fr)
-    gap: 12px
 
-+media-breakpoint-down(480px)
-  .grid
-    grid-template-columns: repeat(2, 1fr)
-    gap: 10px
-  
-  .game-info-container
-    grid-template-columns: 1fr
-  
-  .game-info
-    grid-template-columns: 1fr
+  .game-container
+    padding: 1rem
+

@@ -1,17 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Juego } from '../models/juego.model';
+import { Juego } from '../models/juegos.models'; // Asegúrate que este modelo exista
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JuegosService {
+  private apiUrl = 'https://apigame.gonzaloandreslucio.com/api/juegos';
 
-   private readonly apiUrl = 'https://apigame.gonzaloandreslucio.com/api/juegos';
+  constructor(private http: HttpClient) {}
 
-  constructor( private readonly http: HttpClient) { }
-
-    // Cabeceras HTTP para las peticiones
+  // Cabeceras HTTP para las peticiones
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',

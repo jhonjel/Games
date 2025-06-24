@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../usuarios/usuario.model';
+import { Usuario } from '../models/usuario.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class UserService {
-
+export class UsuariosService {
   private apiUrl = 'https://apigame.gonzaloandreslucio.com/api/users';
 
   constructor(private http: HttpClient) {}
@@ -26,22 +25,26 @@ export class UserService {
   }
 
   // Obtener un usuario por ID
-  getUsuario(id: number): Observable<Usuario> {
+  getUsuario(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`, {
       headers: this.getHeaders(),
     });
   }
 
   /**
-   * Crea un nuevo usuario.
-   * El backend debe encargarse de asignar el ID.
+   * Crea un nuevo usuario generando un UUID único para su ID.
+   * Si tu backend es el responsable de generar el ID,
+   * elimina la asignación de 'id' aquí y envía solo 'usuario'.
    */
   crearUsuario(usuario: Omit<Usuario, 'id'>): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, usuario, {
+    // Genera un UUID único para cada nuevo usuario
+    const nuevoUsuarioConId: Usuario = {
+      ...usuario,
+      id: crypto.randomUUID(), // ¡CORREGIDO! Genera un UUID único
+    };
+
+    return this.http.post<Usuario>(this.apiUrl, nuevoUsuarioConId, {
       headers: this.getHeaders(),
     });
   }
 }
-
-
-
